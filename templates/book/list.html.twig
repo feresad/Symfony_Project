@@ -1,0 +1,27 @@
+{% if list is defined and list is not empty %}
+
+<table border=1 >
+<tr>
+<td> Id </td>
+<td> Title </td>
+<td> Publication Date </td>
+<td> Enabled </td>
+<td> Details </td>
+</tr>
+{% for list in list %}
+<tr>
+ <td> {{ list.id }}</td>
+ <td> {{ list.title | capitalize }}</td>
+ <td> {{ list.publicationDate | date('d/m/Y') }}</td>
+ <td> {{ list.enabled }}</td>
+ <td> 
+    <a href="{{ path('edit_book', { 'id': list.id }) }}">Edit</a>
+    <a href="{{ path('show_book', { 'id': list.id }) }}">Details</a>
+    <a href="{{ path('delete_book', { 'id': list.id }) }}">Delete</a>
+</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<h1>Authors is empty</h1>
+{% endif %}

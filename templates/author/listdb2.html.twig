@@ -1,0 +1,22 @@
+
+<table border=1 >
+    <tr>
+    <td> Id </td>
+    <td> Username </td>
+    <td> Email </td>
+    <td> nb Books </td>
+    <td>Click me</td>
+    </tr>
+    {% for author in list %}
+    <tr>
+     <td> {{ author.id }}</td>
+     <td> {{ author.Username | capitalize }}</td>
+     <td>  {{ author.emailAdress }}</td>
+     <td> {{ author.nbBooks }}</td>
+        <td>
+            <a href="{{ path('show_detailsdb', {'id': author.id}) }}">Details</a>
+            <a href="{{ path('delete_author', {'id': author.id}) }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>

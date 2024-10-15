@@ -1,0 +1,27 @@
+{% if authors is defined and authors is not empty %}
+
+<h1> Author's number = {{ authors | length}}
+<table border=1 >
+<tr>
+<td> Id </td>
+<td> Username </td>
+<td> Pictures </td>
+<td> nb Books </td>
+<td> Details </td>
+</tr>
+{% set nblivreTotal = 0 %}
+{% for author in authors %}
+{% set nblivreTotal = nblivreTotal + author.nb_books %}
+<tr>
+ <td> {{ author.id }}</td>
+ <td> {{ author.username | capitalize }}</td>
+ <td> <img src="{{ asset(author.picture) }}" alt="Author Pictures"> </td>
+ <td> {{ author.nb_books }}</td>
+ <td><a href="{{ path('author_details', { 'id': author.id }) }}">Details</a></td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<h1>Authors is empty</h1>
+{% endif %}
+<h1>total nb livres : {{ nblivreTotal }}</h1>
