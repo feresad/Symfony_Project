@@ -1,0 +1,21 @@
+<form action="{{ path('author_ref') }}">
+    <label for="ref">Reference:</label>
+    <input name="ref" type="text" required>
+    <input type="submit" value="Search">
+</form>
+<table border=1 >
+    <tr>
+    <td> Id </td>
+    <td> Title </td>
+    <td> Author </td>
+    <td> Reference </td>
+    </tr>
+    {% for book in list %}
+    <tr>
+     <td> {{ book.id }}</td>
+     <td> {{ book.title | capitalize }}</td>
+     <td>  {{ book.author.Username }}</td>
+     <td> {{ book.ref }}</td>
+    </tr>
+    {% endfor %}
+    </table>

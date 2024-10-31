@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Book;
+use App\Entity\Author;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BookType extends AbstractType
 {
@@ -18,10 +20,17 @@ class BookType extends AbstractType
             ->add('publicationDate', null, [
                 'widget' => 'single_text',
             ])
+            ->add('ref')
             ->add('enabled')
+            ->add('author', EntityType::class,[
+                'class' => Author::class,
+                'choice_label' => 'username',
+                'expanded' => false,
+                'multiple' => false
+            ])
             ->add('category', ChoiceType::class,[
                 'choices' => [
-                    'Science-Fiction' => 'Science-Fiction', 
+                    'Science-Fiction' => 'Science-Fiction',
                     'Mystery' => 'Mystery',
                     'AutoBiography' => 'AutoBiography',
                 ],

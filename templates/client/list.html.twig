@@ -1,0 +1,24 @@
+{% if lists is defined and lists is not empty %}
+
+<table border=1 >
+<tr>
+<td> Id </td>
+<td> Nom </td>
+<td> Prenom </td>
+<td> Telephone </td>
+<td> Email </td>
+</tr>
+{% for list in lists %}
+<tr>
+ <td> {{ list.id }}</td>
+ <td> {{ list.Nom }}</td>
+ <td> {{ list.prenom }}</td>
+ <td> {{ list.tel }}</td>
+ <td> {{ list.email }}</td>
+
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<h1>Client is empty</h1>
+{% endif %}

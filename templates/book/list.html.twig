@@ -6,18 +6,24 @@
 <td> Title </td>
 <td> Publication Date </td>
 <td> Enabled </td>
+<td> Author </td>
+<td> Category </td>
+<td> Reference </td>
 <td> Details </td>
 </tr>
-{% for list in list %}
+{% for lists in list %}
 <tr>
- <td> {{ list.id }}</td>
- <td> {{ list.title | capitalize }}</td>
- <td> {{ list.publicationDate | date('d/m/Y') }}</td>
- <td> {{ list.enabled }}</td>
+ <td> {{ lists.id }}</td>
+ <td> {{ lists.title | capitalize }}</td>
+ <td> {{ lists.publicationDate | date('d/m/Y') }}</td>
+ <td> {{ lists.enabled }}</td>
+ <td> {{ lists.author.Username }}</td> 
+ <td> {{ lists.category }}</td>
+ <td> {{ lists.ref }}</td> 
  <td> 
-    <a href="{{ path('edit_book', { 'id': list.id }) }}">Edit</a>
-    <a href="{{ path('show_book', { 'id': list.id }) }}">Details</a>
-    <a href="{{ path('delete_book', { 'id': list.id }) }}">Delete</a>
+    <a href="{{ path('edit_book', { 'id': lists.id }) }}">Edit</a>
+    <a href="{{ path('show_book', { 'id': lists.id }) }}">Details</a>
+    <a href="{{ path('delete_book', { 'id': lists.id }) }}">Delete</a>
 </td>
 </tr>
 {% endfor %}

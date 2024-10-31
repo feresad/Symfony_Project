@@ -76,7 +76,7 @@ class AuthorController extends AbstractController
             "list"=> $list,
         ]);
     }
-    #[Route('/listDb2', name: 'list_db')]
+    #[Route('/listDb2', name: 'list_db2')]
     public function listDb2(AuthorRepository $repo): Response{
         $list = $repo->findAll(); // liaison avec la bd
         return $this->render('author/listdb2.html.twig', [
@@ -113,7 +113,7 @@ class AuthorController extends AbstractController
         if($form->isSubmitted()){
             $em->persist($author);
             $em->flush();
-            return $this->redirectToRoute('list_db');
+            return $this->redirectToRoute('list_db2');
         }
         return $this->render('author/form.html.twig', [
             'form' => $form,
@@ -142,4 +142,60 @@ class AuthorController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('list_db');
     }
+    #[Route ('/list5',name:"author_list5")]
+    public function listDb5(AuthorRepository $repo):Response {
+        $list = $repo->orderListQb();//liaison avec la db
+        return $this->render('author/list.html.twig',[
+            "list" => $list,
+        ]) ;
+    }
+    #[Route ('/list6',name:"author_list6")]
+    public function listDb6(AuthorRepository $repo, Request $request):Response {
+        $value=$request->get("nbBooks");
+        $list = $repo->showMoreThan10($value);//liaison avec la db
+        return $this->render('author/list.html.twig',[
+            "list" => $list,
+        ]) ;
+    }
+    #[Route ('/More10',name:"author_more10")]
+    public function More10(ManagerRegistry $doctrine ,Request $request):Response {
+        $repo = $doctrine->getRepository(Author::class);
+        $value=$request->get("nbBooks");
+        $list = $repo->showMoreThan10($value);//liaison avec la db
+        return $this->render('author/form2.html.twig',[
+            "list" => $list,
+        ]) ;
+    }
+
+    #[Route('/deleteRe', name: 'delete_authorByRepo')]
+    public function deleteRe(AuthorRepository $repo): Response{
+        $repo = $repo->deleteAuthor();
+        return $this->redirectToRoute('list_db');
+    }
+    #[Route ('/ListeByEmail',name:"author_listEmail")]
+    public function listeByEmail(AuthorRepository $repo, Request $request):Response {
+        $list = $repo->listAuthorByEmail();//liaison avec la db
+        return $this->render('author/AuthorlisteByEmail.html.twig',[
+            "list" => $list,
+        ]) ;
+    }
+
+    #[Route('/searchBooks', name: 'author_search_bybooks')]
+public function searchByBooksRange(AuthorRepository $repo, Request $request): Response {
+    $min = $request->query->get('min');
+    $max = $request->query->get('max');
+    
+    $authors = $repo->findAuthorsByBooksRange($min, $max);
+
+    return $this->render('author/rechercheAuthor.html.twig', [
+        'list' => $authors,
+    ]);
+}
+    
+#[Route('/deleteAuthorwith0nbb', name: 'delete_author_0_books')]
+public function deleteAuthorWith0Books(AuthorRepository $repo): Response {
+    $repo->deleteAuthor();
+    return new Response('Authors with 0 books deleted');
+}
+
 }

@@ -1,0 +1,19 @@
+<table border=1 >
+    <tr>
+    <td> Id </td>
+    <td> Title </td>
+    <td> Publication Date </td>
+    <td> Enabled </td>
+    <td> Category </td>
+    <td> Author </td>
+    </tr>
+    {% for lists in list %}
+    <tr>
+     <td> {{ lists.id }}</td>
+     <td> {{ lists.title | capitalize }}</td>
+     <td> {{ lists.publicationDate | date('d/m/Y') }}</td>
+     <td> {{ lists.enabled }}</td>
+     <td> {{ lists.category }}</td>
+     <td> {{ lists.author.Username }} </td>
+    </tr>
+    {% endfor %}
